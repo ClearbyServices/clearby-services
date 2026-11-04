@@ -9,31 +9,38 @@ import {
 interface ServiceItem {
   slug: string;
   title: string;
+  sub_menu?: string;
   category: string;
-  desc: string;
+  intro_paragraphs?: string[];
+  desc?: string;
 }
 
 export default function ServicesFilters({ services = [] }: { services?: ServiceItem[] }) {
   const safeServices = Array.isArray(services) ? services : [];
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // Extract unique categories safely
-  const uniqueCategories = Array.from(new Set(safeServices.map(s => s.category).filter(Boolean)));
+  // Extract unique categories safely and clean them up
+  const uniqueCategories = Array.from(
+    new Set(safeServices.map(s => s.category?.trim()).filter(Boolean))
+  ) as string[];
+
   const filters = ['All', ...uniqueCategories];
 
-  // Filter services safely handling case sensitivity
+  // Filter services safely handling case sensitivity and exact matching
   const filteredServices = activeFilter === 'All' 
     ? safeServices 
-    : safeServices.filter(service => service.category?.trim().toLowerCase() === activeFilter.trim().toLowerCase());
+    : safeServices.filter(service => 
+        service.category?.trim().toLowerCase() === activeFilter.trim().toLowerCase()
+      );
 
   // Dynamically assign icons based on the category name
-  const getCategoryIcon = (category: string) => {
+  const getCategoryIcon = (category: string = "") => {
     const cat = category.toLowerCase();
     if (cat.includes("tech") || cat.includes("dev") || cat.includes("web") || cat.includes("app")) return <Code className="w-5 h-5" />;
     if (cat.includes("market") || cat.includes("seo") || cat.includes("lead")) return <Megaphone className="w-5 h-5" />;
     if (cat.includes("ai") || cat.includes("automation") || cat.includes("data")) return <Cpu className="w-5 h-5" />;
     if (cat.includes("startup") || cat.includes("setup")) return <Rocket className="w-5 h-5" />;
-    if (cat.includes("graphic") || cat.includes("print")) return <Palette className="w-5 h-5" />;
+    if (cat.includes("graphic") || cat.includes("print") || cat.includes("brand")) return <Palette className="w-5 h-5" />;
     if (cat.includes("ui") || cat.includes("ux") || cat.includes("design")) return <Layout className="w-5 h-5" />;
     if (cat.includes("photo") || cat.includes("video") || cat.includes("media")) return <Camera className="w-5 h-5" />;
     if (cat.includes("consult")) return <Briefcase className="w-5 h-5" />;
@@ -65,38 +72,49 @@ export default function ServicesFilters({ services = [] }: { services?: ServiceI
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.length > 0 ? (
-            filteredServices.map((service, idx) => (
-              <div 
-                key={idx} 
-                className="bg-[var(--card-bg)] p-8 border border-[var(--border-color)] shadow-xl rounded-2xl flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent-action)] hover:shadow-2xl hover:-translate-y-1.5 group relative overflow-hidden"
-              >
-                {/* Subtle background glow effect on hover */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-action)]/5 rounded-full blur-3xl group-hover:bg-[var(--accent-action)]/10 transition-colors pointer-events-none"></div>
+            filteredServices.map((service, idx) => {
+              // Extract description safely from intro_paragraphs array or fallback to desc string
+              const serviceDescription = 
+                service.intro_paragraphs?.[0] || 
+                service.desc || 
+                "Professional solution tailored to scale your business operations.";
 
-                <div className="relative z-10">
-                  <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--accent-action)] flex items-center justify-center rounded-xl mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                    {getCategoryIcon(service.category)}
-                  </div>
-                  <span className="text-[10px] font-bold text-[var(--accent-action)] tracking-widest mb-3 uppercase block">
-                    {service.category}
-                  </span>
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent-action)] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-[var(--text-body)] mb-8 leading-relaxed opacity-90 line-clamp-3">
-                    {service.desc}
-                  </p>
-                </div>
-                
-                <Link 
-                  href={`/services/${service.slug}`} 
-                  className="relative z-10 inline-flex items-center gap-2 text-xs font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-action)] transition-colors mt-auto pt-5 border-t border-[var(--border-color)] w-full"
+              // Display sub_menu if present, else fallback to title
+              const displayTitle = service.sub_menu || service.title;
+
+              return (
+                <div 
+                  key={idx} 
+                  className="bg-[var(--card-bg)] p-8 border border-[var(--border-color)] shadow-xl rounded-2xl flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent-action)] hover:shadow-2xl hover:-translate-y-1.5 group relative overflow-hidden"
                 >
-                  <span>Explore Service</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            ))
+                  {/* Subtle background glow effect on hover */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-action)]/5 rounded-full blur-3xl group-hover:bg-[var(--accent-action)]/10 transition-colors pointer-events-none"></div>
+
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--accent-action)] flex items-center justify-center rounded-xl mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                      {getCategoryIcon(service.category)}
+                    </div>
+                    <span className="text-[10px] font-bold text-[var(--accent-action)] tracking-widest mb-3 uppercase block">
+                      {service.category || "General"}
+                    </span>
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent-action)] transition-colors">
+                      {displayTitle}
+                    </h3>
+                    <p className="text-sm text-[var(--text-body)] mb-8 leading-relaxed opacity-90 line-clamp-3">
+                      {serviceDescription}
+                    </p>
+                  </div>
+                  
+                  <Link 
+                    href={`/services/${service.slug}`} 
+                    className="relative z-10 inline-flex items-center gap-2 text-xs font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-action)] transition-colors mt-auto pt-5 border-t border-[var(--border-color)] w-full"
+                  >
+                    <span>Explore Service</span>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              );
+            })
           ) : (
             <div className="col-span-full py-20 text-center text-[var(--text-body)] text-sm bg-[var(--card-bg)] border border-[var(--border-color)] rounded-2xl">
               No services found for this category. Check back soon.

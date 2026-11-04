@@ -1,7 +1,61 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
+
+interface ServiceLink {
+  name: string;
+  href: string;
+}
 
 export default function Footer() {
+  const [columnThreeServices, setColumnThreeServices] = useState<ServiceLink[]>([
+    { name: "Web & Full-Stack", href: "/services/web-fullstack" },
+    { name: "Mobile App Dev", href: "/services/mobile-apps" },
+    { name: "CMS & E-Commerce", href: "/services/cms-ecommerce" },
+    { name: "Enterprise & QA", href: "/services/enterprise-qa" },
+    { name: "AI & Automation", href: "/services/ai-automation" },
+    { name: "AI Marketing Services", href: "/services/ai-marketing" },
+  ]);
+
+  const [columnFourServices, setColumnFourServices] = useState<ServiceLink[]>([
+    { name: "Lead Gen & Ads", href: "/services/lead-gen-performance" },
+    { name: "Social Media Marketing", href: "/services/social-media" },
+    { name: "Search Engine Optimisation", href: "/services/seo" },
+    { name: "Influencer Marketing", href: "/services/influencer" },
+    { name: "Startup Branding", href: "/services/startup-branding" },
+    { name: "UI/UX & Product Design", href: "/services/ui-ux-design" },
+  ]);
+
+  useEffect(() => {
+    async function fetchFooterServices() {
+      const { data, error } = await supabase
+        .from('services')
+        .select('slug, title, sub_menu, menu_order')
+        .order('menu_order', { ascending: true });
+
+      if (data && !error && data.length > 0) {
+        const mapped = data.map((item) => ({
+          name: item.sub_menu || item.title,
+          href: `/services/${item.slug}`
+        }));
+
+        const midPoint = Math.ceil(mapped.length / 2);
+        setColumnThreeServices(mapped.slice(0, midPoint));
+        setColumnFourServices(mapped.slice(midPoint));
+      }
+    }
+
+    fetchFooterServices();
+  }, []);
+
   const pagesAndLegal = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
@@ -10,59 +64,12 @@ export default function Footer() {
     { name: "Contact Us", href: "/contact" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/privacy" },
-  ];
-
-  const columnThreeServices = [
-    { name: "Web & Full-Stack", href: "/services/web-fullstack" },
-    { name: "Mobile App Dev", href: "/services/mobile-apps" },
-    { name: "CMS & E-Commerce", href: "/services/cms-ecommerce" },
-    { name: "Enterprise & QA", href: "/services/enterprise-qa" },
-    { name: "AI & Automation", href: "/services/ai-automation" },
-    { name: "AI Marketing Services", href: "/services/ai-marketing" },
-  ];
-
-  const columnFourServices = [
-    { name: "Lead Gen & Ads", href: "/services/lead-gen-performance" },
-    { name: "Social Media Marketing", href: "/services/social-media" },
-    { name: "Search Engine Optimisation", href: "/services/seo" },
-    { name: "Influencer Marketing", href: "/services/influencer" },
-    { name: "Startup Branding", href: "/services/startup-branding" },
-    { name: "UI/UX & Product Design", href: "/services/ui-ux-design" },
-  ];
-
-  const socialLinks = [
-    { 
-      name: "Instagram", 
-      href: "https://instagram.com", 
-      svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> 
-    },
-    { 
-      name: "Facebook", 
-      href: "https://facebook.com", 
-      svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.37 14.5 5 15.5 5H18V0h-3.808C10.59 0 9 1.581 9 4.75V8z"/></svg> 
-    },
-    { 
-      name: "LinkedIn", 
-      href: "https://linkedin.com", 
-      svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg> 
-    },
-    { 
-      name: "YouTube", 
-      href: "https://youtube.com", 
-      svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> 
-    },
-    { 
-      name: "Pinterest", 
-      href: "https://pinterest.com", 
-      svg: <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.223 7.462-1.214 0-2.355-.63-2.744-1.379l-.749 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg> 
-    },
   ];
 
   return (
     <footer className="w-full bg-[var(--bg-primary)] border-t border-[var(--border-color)] pt-32 pb-28 md:pt-44 md:pb-40 transition-colors duration-300 relative overflow-hidden">
       
-      {/* Giant Background Watermark Text Effect with deep vertical padding buffer */}
+      {/* Giant Background Watermark Text Effect */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 select-none pointer-events-none z-0">
         <span className="text-[14vw] font-black tracking-tighter text-[var(--text-primary)] opacity-[0.03] uppercase whitespace-nowrap">
           Clearby
@@ -93,37 +100,45 @@ export default function Footer() {
             <div className="space-y-4 text-xs text-[var(--text-body)]">
               <div className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
-                <a href="mailto:contact@clearbyservices.com" className="hover:text-[var(--accent-action)] transition">
-                  contact@clearbyservices.com
+                <a href="mailto:contact@clearbyresearch.com" className="hover:text-[var(--accent-action)] transition">
+                  contact@clearbyresearch.com
                 </a>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
                 <a href="tel:+917020112146" className="hover:text-[var(--accent-action)] transition">
-                  +91-7020 112146
+                  +91-7020112146
                 </a>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
-                <span className="leading-relaxed opacity-90">
-                  VJ Indilife Sus-Pashan Road, Vardayani Society, Sutarwadi, Pashan Pune, Maharashtra 411021
-                </span>
+                <a 
+                  href="https://maps.app.goo.gl/FLBdZ5kPNpmFqYFT7" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-[var(--accent-action)] transition leading-relaxed opacity-95 not-italic"
+                >
+                  VJ Indilife Sus-Pashan Road,<br />
+                  Vardayani Society, Sutarwadi,<br />
+                  Pashan Pune, Maharashtra 411021
+                </a>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-2">
-              {socialLinks.map((soc, sIdx) => (
-                <a 
-                  key={sIdx} 
-                  href={soc.href} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  aria-label={soc.name}
-                  className="p-2 rounded-full bg-[var(--text-primary)]/5 border border-[var(--border-color)] text-[var(--text-body)] hover:text-[var(--accent-action)] hover:border-[var(--accent-action)] transition-all"
-                >
-                  {soc.svg}
-                </a>
-              ))}
+            {/* Social Media Links */}
+            <div className="flex justify-center lg:justify-start gap-4 items-center mb-2 pt-2">
+              <a href="https://www.linkedin.com/company/clearbyresearch/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 text-[var(--text-body)] hover:text-[var(--accent-action)] transition-colors" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+              </a>
+              <a href="https://www.facebook.com/share/19QAdaiSpy/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 text-[var(--text-body)] hover:text-[var(--accent-action)] transition-colors" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" /></svg>
+              </a>
+              <a href="https://www.instagram.com/clearbyresearch?stkn=MWZxNGVvdDZoNHV6Zw==" target="_blank" rel="noopener noreferrer" className="w-5 h-5 text-[var(--text-body)] hover:text-[var(--accent-action)] transition-colors" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="https://in.pinterest.com/0yz8vbtp9coatnn6btjos1aqmuxcmg/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 text-[var(--text-body)] hover:text-[var(--accent-action)] transition-colors" aria-label="Pinterest">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.545.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+              </a>
             </div>
           </div>
 

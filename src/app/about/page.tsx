@@ -1,28 +1,128 @@
 import Link from "next/link";
 import { 
-  GraduationCap, 
-  ShieldCheck, 
-  Scale, 
-  Lightbulb, 
-  Clock, 
+  Megaphone, 
+  MonitorSmartphone, 
+  Briefcase, 
+  Bot, 
+  Palette, 
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Lightbulb,
+  ShieldCheck,
+  Clock,
+  GraduationCap,
+  Scale
 } from "lucide-react";
 import VisionCards from "@/components/VisionCards";
-import FacultyCards from "@/components/FacultyCards"; // Import the new Faculty Cards
+import FaqAccordion from "@/components/FaqAccordion";
+import FacultyCards from "@/components/FacultyCards";
 
 export const metadata = {
-  title: 'About Us | E-Clearby Research',
-  description: 'Academic consultation and research assistance for scholars, researchers, and PhD candidates.',
+  title: 'About Us | Clearby Services',
+  description: 'Clearby Services is a Pune-based digital marketing and technology agency helping startups, small and medium businesses and established companies get found online.',
 };
 
 export default function AboutPage() {
   const coreValues = [
-    { title: "Expertise", desc: "Research and methodological consultation tailored to your academic needs.", icon: <GraduationCap className="w-6 h-6" /> },
-    { title: "Confidentiality", desc: "Careful handling of your research, data, documents, and intellectual property.", icon: <ShieldCheck className="w-6 h-6" /> },
-    { title: "Integrity", desc: "Responsible academic practices that respect originality and research ethics.", icon: <Scale className="w-6 h-6" /> },
-    { title: "Clarity", desc: "Clear explanations, practical feedback, and structured academic input.", icon: <Lightbulb className="w-6 h-6" /> },
-    { title: "Timeliness", desc: "Reliable communication and delivery aligned with agreed timelines.", icon: <Clock className="w-6 h-6" /> },
+    { title: "Clarity", desc: "We explain options in plain language so you can decide with confidence.", icon: <Lightbulb className="w-6 h-6" /> },
+    { title: "Honesty", desc: "We say what is realistic and avoid promises we cannot control.", icon: <ShieldCheck className="w-6 h-6" /> },
+    { title: "Practicality", desc: "We recommend what fits your budget and stage, not the biggest package.", icon: <Clock className="w-6 h-6" /> },
+    { title: "Collaboration", desc: "Your knowledge of your customers and ours of the channels work best together.", icon: <GraduationCap className="w-6 h-6" /> },
+    { title: "Integrity", desc: "Responsible digital practices that respect your business goals and ethics.", icon: <Scale className="w-6 h-6" /> },
+  ];
+
+  const servicesList = [
+    { 
+      title: "Digital Marketing", 
+      desc: "SEO (including AEO and GEO), social media, influencer and content marketing, and Google Business Profile management.", 
+      icon: <Megaphone className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+    { 
+      title: "Performance Marketing & Lead Generation", 
+      desc: "Google Ads, email, SMS, WhatsApp and call-based campaigns, with tracking.", 
+      icon: <TrendingUpIcon className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+    { 
+      title: "AI Solutions", 
+      desc: "AI calling in English, Hindi and Marathi, plus AI-assisted video, voice-over, graphics and content. [Confirm]", 
+      icon: <Bot className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+    { 
+      title: "Business Consulting & Startup Setup", 
+      desc: "planning, growth and marketing strategy guidance.", 
+      icon: <Briefcase className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+    { 
+      title: "Branding, Design & Printing", 
+      desc: "logos, visiting cards, brochures, company profiles and marketing collateral.", 
+      icon: <Palette className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+    { 
+      title: "Website & Software Development", 
+      desc: "websites, e-commerce, mobile apps and custom software.", 
+      icon: <MonitorSmartphone className="w-6 h-6 text-[var(--accent-action)]" /> 
+    },
+  ];
+
+  const teamRoles = [
+    "SEO and digital marketing specialists",
+    "Paid media and performance marketers",
+    "Content writers and social media managers",
+    "Graphic and UI/UX designers",
+    "Web and software developers",
+    "Business and marketing consultants"
+  ];
+
+  const differentiators = [
+    { title: "One team for strategy and delivery.", desc: "Consulting, marketing, creative and development can work from the same plan." },
+    { title: "AI-enabled communication and creative.", desc: "We offer AI calling in English, Hindi and Marathi and AI-assisted content, with people reviewing the output. [Confirm]" },
+    { title: "A broad portfolio, explained clearly.", desc: "You can start with one service and add others as your needs grow." },
+    { title: "Honest expectations.", desc: "We do not promise rankings, leads or sales. We explain what is realistic and how we will measure it." },
+    { title: "Plain language.", desc: "We explain choices without jargon, so you can decide with confidence." },
+    { title: "Local and accessible.", desc: "We are a Pune team you can meet. [Confirm]" }
+  ];
+
+  const faqs = [
+    {
+      question: "What is Clearby Services?",
+      answer: "Clearby Services is a digital marketing and technology agency in Pune. We offer digital marketing, performance marketing, AI solutions, business consulting, branding and printing, and website and software development."
+    },
+    {
+      question: "Where is Clearby Services located?",
+      answer: "We are based in Pashan, Pune, Maharashtra. We work with businesses in Pune and across India. [Confirm address and service areas]"
+    },
+    {
+      question: "Who do you work with?",
+      answer: "Startups, small and medium businesses and established companies. Our plans are tailored to your stage, budget and goals. [Confirm sectors served]"
+    },
+    {
+      question: "Do I have to use all your services?",
+      answer: "No. Many clients start with one service, such as SEO or a website, and add others later. Because the services are connected, adding them is straightforward."
+    },
+    {
+      question: "What is AI calling?",
+      answer: "AI calling uses automated voice agents to handle routine calls, such as follow-ups or reminders, in English, Hindi or Marathi. We assess whether it suits your use case and how human handover and consent would work. [Confirm]"
+    },
+    {
+      question: "How do you price your services?",
+      answer: "Pricing depends on scope, platforms, volume and duration. After a short conversation about your goals, we provide a written scope and quotation. [Confirm pricing approach]"
+    },
+    {
+      question: "How do you report results?",
+      answer: "We agree measures at the start, such as enquiries, calls, rankings or conversions, and share regular reports in plain language. [Confirm reporting frequency]"
+    },
+    {
+      question: "Can you guarantee rankings or leads?",
+      answer: "No agency can honestly guarantee them, because search engines, platforms and markets are outside our control. We commit to clear plans, transparent reporting and regular reviews."
+    },
+    {
+      question: "Do you offer a free consultation?",
+      answer: "Yes, we offer a first conversation to understand your goals and suggest where to begin. [Confirm that it is free and what it includes]"
+    },
+    {
+      question: "How can I contact Clearby Services?",
+      answer: "You can reach us through the contact page on our website, by email or by phone using the details listed there."
+    }
   ];
 
   return (
@@ -36,114 +136,98 @@ export default function AboutPage() {
           <span className="text-[var(--text-primary)]">ABOUT US</span>
         </div>
         
+        <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-4">
+          About Clearby Services
+        </span>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 max-w-4xl text-[var(--text-primary)] leading-tight">
-          Redefining <span className="text-[var(--accent-action)]">Academic Research</span> & Consultancy
+          Your Digital Marketing and Technology Partner in <span className="text-[var(--accent-action)]">Pune</span>
         </h1>
         
-        <div className="max-w-3xl space-y-6 text-base md:text-lg text-[var(--text-body)] leading-relaxed">
+        <div className="max-w-3xl space-y-6 text-base md:text-lg text-[var(--text-body)] leading-relaxed text-left">
           <p>
-            Research is more than the process of completing an academic requirement. It involves asking meaningful questions, evaluating evidence, making informed methodological decisions, and developing knowledge in a structured and academically rigorous way. For many scholars, navigating this process alongside university requirements, supervisor feedback, data, deadlines, and publication expectations can be challenging.
+            <strong className="text-[var(--text-primary)] font-semibold">Clearby Services</strong> is a Pune-based digital marketing and technology agency. We help startups, small and medium businesses and established companies get found online, reach the right customers and run their digital operations with more clarity.
           </p>
           <p>
-            <strong className="text-[var(--text-primary)] font-semibold">E-Clearby Research Consulting Pvt. Ltd.</strong> provides academic consultation and research assistance to PhD scholars, Master&apos;s students, and researchers across different disciplines. Our role is to help you make informed research decisions, strengthen your academic work, and navigate complex stages of the research process with greater clarity and confidence.
+            Our work covers digital marketing, performance marketing and lead generation, AI-powered solutions, business consulting, branding and printing, and website and software development. Many businesses end up coordinating several vendors who never talk to each other. We aim to bring strategy and execution into one plan, so each piece supports the others.
           </p>
           <p>
-            Our approach is simple: <span className="text-[var(--text-primary)] font-medium">your research remains yours</span>. We provide consultation, review, methodological input, feedback, and recommendations while you remain responsible for developing, interpreting, finalising, and submitting your academic work.
+            We are based in Pashan, Pune, and work with businesses locally and across India.
           </p>
+          
+          <div className="bg-[var(--card-bg)] border border-[var(--border-color)] p-6 rounded-2xl space-y-2 mt-4">
+            <h3 className="font-bold text-[var(--text-primary)]">Who we help.</h3>
+            <p className="text-sm">Startups preparing to launch, growing businesses that want more enquiries, and established companies planning new campaigns, systems or markets.</p>
+          </div>
+          
+          <div className="bg-[var(--card-bg)] border border-[var(--border-color)] p-6 rounded-2xl space-y-2">
+            <h3 className="font-bold text-[var(--text-primary)]">How we work with you.</h3>
+            <p className="text-sm">We begin with a conversation about your goals, agree on a clear scope, and keep you informed with plain-language updates. You choose how much support you need.</p>
+          </div>
         </div>
       </section>
 
-      {/* 2. OUR FOUNDING VISION SECTION - UPGRADED WITH ACETERNITY CARDS */}
+      {/* 2. VISION & MISSION SECTION */}
       <section className="w-full bg-[var(--card-bg)] py-24 px-4 sm:px-6 lg:px-8 border-y border-[var(--border-color)] overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative z-10">
             <div className="mb-6 flex flex-col gap-2">
-              <span className="text-xs font-bold text-[var(--accent-action)] tracking-widest uppercase">A LEGACY OF SCHOLARLY SUPPORT</span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)]">Our Founding Vision</h2>
+              <span className="text-xs font-bold text-[var(--accent-action)] tracking-widest uppercase">OUR VISION & MISSION</span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)]">Clarity & Practical Growth</h2>
             </div>
-            <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed mb-6">
-              E-Clearby Research was established in response to the growing isolation felt by doctoral candidates in an increasingly fragmented academic landscape. We recognized that while the pursuit of a PhD is a solitary endeavor, the infrastructure of research should never be.
-            </p>
-            <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed mb-8">
-              Our journey began with a small circle of senior academics who shared a singular goal: to provide the bridge between raw data and profound insight. Today, that vision has expanded into a premier consultancy that serves hundreds of scholars across various continents, maintaining the same personal touch and rigorous standards that defined our inception.
-            </p>
+            
+            <div className="space-y-6 text-[var(--text-body)] text-base md:text-lg leading-relaxed mb-8">
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--accent-action)] mb-1">Our vision</h3>
+                <p>To be a trusted growth partner for businesses in Pune and beyond, known for clarity, practical thinking and honest work.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--accent-action)] mb-2">Our mission</h3>
+                <ul className="space-y-2.5 text-sm">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
+                    Understand your business before recommending anything
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
+                    Connect strategy with execution, so plans turn into action
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
+                    Use technology and AI where they genuinely help
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
+                    Report results plainly, including what did not work
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
+                    Build long-term relationships, not one-off transactions
+                  </li>
+                </ul>
+              </div>
+            </div>
+
             <blockquote className="border-l-2 border-[var(--accent-action)] pl-6 py-2 italic text-lg md:text-xl text-[var(--text-primary)] leading-relaxed font-medium">
-              &ldquo;Intellectual progress is the result of shared dedication. We don&apos;t just facilitate research; we nurture the next generation of global thought leaders.&rdquo;
+              &ldquo;Connecting strategy and execution into one plan, so each piece supports the others.&rdquo;
             </blockquote>
           </div>
           
-          {/* Framer Motion Drag Cards injected here */}
           <div className="relative w-full h-full flex items-center justify-center">
             <VisionCards />
           </div>
         </div>
       </section>
 
-      {/* 3. OUR APPROACH TO ACADEMIC CONSULTANCY */}
-      <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)]">
-       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative group overflow-hidden rounded-2xl bg-[var(--border-color)] p-1 order-2 lg:order-1">
-            <img 
-              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" 
-              alt="Clearby Research About" 
-              className="w-full h-auto object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500"
-            />
-          </div>
-          <div className="order-1 lg:order-2">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)] mb-6">
-              Our Approach to Academic Consultancy
-            </h2>
-            <div className="space-y-6 text-[var(--text-body)] text-base md:text-lg leading-relaxed">
-              <p>
-                Academic research can be an independent journey, but independent research does not have to mean navigating every challenge without expert input. Our consultancy model is designed to give scholars access to structured academic perspectives while preserving their ownership of the research process.
-              </p>
-              <p>
-                We work with the research materials, ideas, data, and objectives provided by the scholar and help identify areas that may require greater clarity, stronger alignment, methodological consideration, or further refinement.
-              </p>
-              <p>
-                Rather than replacing the scholars role, we aim to make the research process more structured and informed—helping scholars understand their options, evaluate academic decisions, and improve their own work.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. OUR COMMITMENT TO RESEARCH ETHICS */}
-      <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--card-bg)] border-y border-[var(--border-color)]">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-4">Commitment to Ethics</h2>
-          <p className="text-[var(--text-body)] max-w-2xl mx-auto">Operating with the highest standard of academic integrity and transparency.</p>
-        </div>
-        
-        <div className="max-w-5xl mx-auto space-y-6">
-          {[
-            { title: "Academic Integrity", desc: "Our services are designed to encourage appropriate research practices, accurate attribution, responsible use of sources, and adherence to applicable university and institutional requirements." },
-            { title: "Scholar Ownership", desc: "The research thinking, interpretation, academic arguments, and final decisions remain with the scholar. We provide consultation and feedback; the scholar reviews, finalises, and submits." },
-            { title: "Advisory Role", desc: "Our role is to provide academic input—not to replace the researcher. We help scholars understand research concepts, evaluate methodological choices, and strengthen their work." },
-            { title: "Transparent Engagement", desc: "We believe scholars should clearly understand what a service includes before beginning an engagement. Our scope, deliverables, timelines, and responsibilities are communicated clearly." },
-            { title: "Respect for Guidelines", desc: "Research requirements differ across universities, disciplines, and supervisors. We encourage scholars to follow institutional guidelines and use our consultation within those requirements." }
-          ].map((item, idx) => (
-            <div key={idx} className="group bg-[var(--bg-primary)] border border-[var(--border-color)] hover:border-[var(--accent-action)] p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col md:flex-row md:items-start gap-4 shadow-sm">
-              <div className="bg-[var(--card-bg)] p-3 rounded-full text-[var(--accent-action)] shrink-0">
-                <CheckCircle2 className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-action)] transition-colors">{item.title}</h3>
-                <p className="text-[var(--text-body)] leading-relaxed">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. OUR CORE VALUES */}
+      {/* 3. OUR APPROACH */}
       <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)]">
         <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-4">Our Core Values</h2>
+          <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-2">Pillars</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)]">Our Approach</h2>
         </div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {coreValues.map((val, idx) => (
-            <div key={idx} className="bg-[var(--card-bg)] p-8 border border-[var(--border-color)] hover:border-[var(--accent-action)] rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col items-start group">
+            <div key={idx} className="bg-[var(--card-bg)] p-8 border border-[var(--border-color)] hover:border-[var(--accent-action)] rounded-2xl shadow-sm transition-all duration-300 flex flex-col items-start group">
               <div className="mb-6 text-[var(--text-body)] group-hover:text-[var(--accent-action)] group-hover:scale-110 transition-all duration-300">
                 {val.icon}
               </div>
@@ -154,58 +238,125 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. ELITE RESEARCH FACULTY (Aceternity UI Style) */}
-      <section className="w-full py-32 bg-[var(--bg-primary)] border-y border-[var(--border-color)] overflow-hidden flex flex-col items-center">
-        
-        {/* Section Header */}
-        <div className="max-w-4xl mx-auto px-4 text-center mb-24 relative z-10">
-          <span className="text-xs font-bold text-[var(--accent-action)] tracking-widest uppercase mb-4 block">
-            OUR EXPERTS
-          </span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-[var(--text-primary)] mb-6 tracking-tight">
-            Elite Research Faculty
-          </h2>
+      {/* 4. WHAT WE DO */}
+      <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--card-bg)] border-y border-[var(--border-color)]">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-2">Capabilities</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-4">What We Do</h2>
+          <p className="text-[var(--text-body)] max-w-2xl mx-auto">Comprehensive digital solutions designed to scale your business operations.</p>
         </div>
 
-        {/* Fanning Cards Component */}
-        <FacultyCards />
-
-        {/* Section Footer/Story */}
-        <div className="max-w-2xl mx-auto px-4 text-center mt-32 relative z-10">
-          <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed opacity-90 mb-8">
-            Our consultants are not just advisors; they are seasoned researchers, peer-reviewers, and academic pioneers with decades of cumulative experience across Stanford, Oxford, and Harvard.
-          </p>
-          <Link 
-            href="/contact" 
-            className="text-[var(--accent-action)] font-bold text-sm hover:opacity-80 transition inline-flex items-center gap-1 uppercase tracking-wider"
-          >
-            Work with our experts <span className="text-lg leading-none">→</span>
-          </Link>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {servicesList.map((srv, idx) => (
+            <div key={idx} className="bg-[var(--bg-primary)] p-8 border border-[var(--border-color)] rounded-2xl shadow-sm hover:border-[var(--accent-action)] transition-all">
+              <div className="p-3 w-fit rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] mb-6">
+                {srv.icon}
+              </div>
+              <h3 className="text-xl font-bold mb-3">{srv.title}</h3>
+              <p className="text-sm text-[var(--text-body)] leading-relaxed">{srv.desc}</p>
+            </div>
+          ))}
         </div>
-
       </section>
 
-      {/* 7. FINAL CTA BANNER */}
-      <section className="w-full py-24 bg-[var(--bg-primary)] text-center px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-(--text-primary) mb-6">
-            Ready to start your research journey?
-          </h2>
-          <p className="text-[var(--text-body)] text-base md:text-lg mb-10 leading-relaxed">
-            Whether you are at the proposal stage or finalizing your dissertation, our experts are ready to provide the guidance you need to succeed.
+      {/* 5. OUR TEAM */}
+      <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)]">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-2">Expertise</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-6">Our Team</h2>
+          <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+            Our team brings together digital marketing, creative and technology skills, so most projects can be handled without handing work between unrelated vendors.
           </p>
-          <Link 
-            href="/contact" 
-            className="bg-[var(--accent-action)] text-[var(--bg-primary)] font-bold py-4 px-8 rounded-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2 text-sm md:text-base shadow-lg mb-8"
-          >
-            Book Your Initial Consultation <ArrowRight className="w-4 h-4" />
-          </Link>
-          <div className="text-xs text-[var(--text-body)] uppercase tracking-[0.2em] font-bold">
-            Confidential • Professional • Academic-Focused
+        </div>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: Faculty Cards Component (65% width = lg:col-span-8) */}
+          <div className="lg:col-span-8 relative w-full py-12 flex items-center justify-center overflow-hidden">
+            <FacultyCards />
+          </div>
+
+          {/* Right Column: Typical Roles (35% width = lg:col-span-4) */}
+          <div className="lg:col-span-4 space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--accent-action)] mb-3">Typical roles include:</h3>
+            <div className="grid grid-cols-1 gap-3">
+              {teamRoles.map((role, idx) => (
+                <div key={idx} className="bg-[var(--card-bg)] p-3.5 rounded-xl border border-[var(--border-color)] text-xs md:text-sm flex items-center gap-3 shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-[var(--accent-action)] shrink-0" />
+                  <span className="font-medium text-[var(--text-primary)] leading-tight">{role}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. ABOUT THE FOUNDER */}
+      <section className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-[var(--card-bg)] border-y border-[var(--border-color)]">
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-2">Leadership</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)] mb-8">About the Founder</h2>
+          
+          <div className="bg-[var(--bg-primary)] p-8 md:p-10 border border-[var(--border-color)] rounded-2xl space-y-4 text-sm text-[var(--text-body)]">
+            <p className="italic">[Founder name] founded Clearby Services in [year]. [Add three or four sentences: professional background, why Clearby was started, areas of expertise and what clients can expect when they work with the founder.]</p>
+            <p className="italic opacity-80">[Add a photo, a LinkedIn link and one short quote on the founder’s approach, with approval. Include only facts that can be verified.]</p>
           </div>
         </div>
       </section>
 
+     {/* 7. WHAT MAKES US DIFFERENT */}
+      <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)]">
+        <div className="max-w-5xl mx-auto text-center mb-12">
+          <span className="text-xs font-bold text-[var(--accent-action)] uppercase tracking-widest block mb-2">Differentiation</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)] mb-2">What Makes Us Different?</h2>
+          <p className="text-[var(--text-body)] text-xs md:text-sm">Plenty of agencies offer marketing or technology. Here is how we approach it.</p>
+        </div>
+
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+          {differentiators.map((item, idx) => (
+            <div key={idx} className="bg-[var(--card-bg)] p-5 rounded-xl border border-[var(--border-color)] flex items-start gap-3.5 shadow-sm">
+              <div className="p-1.5 rounded-full bg-[var(--bg-primary)] text-[var(--accent-action)] shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-[var(--text-primary)] mb-1">{item.title}</h3>
+                <p className="text-xs text-[var(--text-body)] leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 8. FAQ SECTION */}
+      <FaqAccordion faqs={faqs.map(({ question, answer }) => ({ q: question, a: answer }))} />
+
+      {/* 9. FINAL CTA BANNER */}
+      <section className="w-full py-24 bg-[var(--card-bg)] border-t border-[var(--border-color)] text-center px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-6">
+            Let’s Talk About Your Business
+          </h2>
+          <p className="text-[var(--text-body)] text-base md:text-lg mb-10 leading-relaxed">
+            Tell us what you are trying to achieve. We will suggest a practical starting point and explain what to expect, with no obligation. [Confirm]
+          </p>
+          <Link 
+            href="/contact" 
+            className="bg-[var(--accent-action)] text-[var(--bg-primary)] font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-opacity inline-flex items-center gap-2 text-sm md:text-base shadow-lg mb-4"
+          >
+            Book a Free Consultation <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
     </div>
+  );
+}
+
+function TrendingUpIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...props} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    </svg>
   );
 }

@@ -11,11 +11,11 @@ const supabase = createClient(
 );
 
 interface BlogPost {
-  id: string;
+  id: string | number;
   slug: string;
   title: string;
   excerpt: string;
-  content: string;
+  content?: string;
   category: string;
   author_name?: string;
   read_time?: string;
@@ -24,28 +24,83 @@ interface BlogPost {
   is_featured?: boolean;
 }
 
+// Fallback demo posts so the page looks great even if Supabase is empty or unreachable
+const FALLBACK_BLOGS: BlogPost[] = [
+  {
+    id: 1,
+    slug: "ai-calling-business-growth-pune",
+    title: "How Multilingual AI Calling is Transforming Customer Engagement in Pune",
+    excerpt: "Discover how businesses in Pune are leveraging AI-powered voice agents in English, Hindi, and Marathi to automate follow-ups and scale lead generation.",
+    category: "AI Automation",
+    author_name: "Clearby Team",
+    read_time: "6 min read",
+    created_at: "2026-10-24",
+    featured_image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    is_featured: true,
+  },
+  {
+    id: 2,
+    slug: "performance-marketing-roi-guide",
+    title: "Performance Marketing vs. Brand Awareness: Where Should Startups Invest?",
+    excerpt: "A practical framework for founders to balance immediate lead generation campaigns with long-term brand building on Google and Meta.",
+    category: "Performance Marketing",
+    author_name: "Milind Darekar",
+    read_time: "5 min read",
+    created_at: "2026-10-18",
+    featured_image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    id: 3,
+    slug: "nextjs-fullstack-architecture-2026",
+    title: "Building High-Performance Web Apps with Next.js and Supabase",
+    excerpt: "Why modern businesses choose integrated tech stacks for lightning-fast speeds, SEO optimization, and secure data handling.",
+    category: "Web Development",
+    author_name: "Clearby Team",
+    read_time: "7 min read",
+    created_at: "2026-10-10",
+    featured_image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    id: 4,
+    slug: "ui-ux-design-conversion-rate",
+    title: "The Direct Impact of UI/UX Design on Your Conversion Rates",
+    excerpt: "Learn how intentional interface layouts, typography hierarchy, and friction-free user flows turn casual visitors into paying customers.",
+    category: "UI/UX Design",
+    author_name: "Design Lead",
+    read_time: "4 min read",
+    created_at: "2026-10-02",
+    featured_image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
+  }
+];
+
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
 
-  // Updated categories to match your agency services
   const categories = ['All', 'Web Development', 'AI Automation', 'Performance Marketing', 'UI/UX Design', 'Company News'];
 
   useEffect(() => {
     async function fetchBlogs() {
-      const { data, error } = await supabase
-        .from("blogs")
-        .select("*")
-        .order("id", { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from("blogs")
+          .select("*")
+          .order("id", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching blogs from Supabase:", error);
-      } else if (data) {
-        setBlogs(data);
+        if (error || !data || data.length === 0) {
+          console.warn("Using fallback blogs due to Supabase error or empty table:", error);
+          setBlogs(FALLBACK_BLOGS);
+        } else {
+          setBlogs(data);
+        }
+      } catch (err) {
+        console.error("Supabase connection exception:", err);
+        setBlogs(FALLBACK_BLOGS);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
 
     fetchBlogs();
@@ -200,7 +255,7 @@ export default function BlogPage() {
               <div className="flex justify-center mt-16">
                 <button 
                   onClick={() => setVisibleCount(prev => prev + 6)}
-                  className="border-2 border-[var(--accent-action)] text-[var(--accent-action)] font-bold py-3.5 px-8 rounded-lg hover:bg-[var(--accent-action)] hover:text-[var(--bg-primary)] transition-all duration-300 text-sm tracking-wider uppercase"
+                  className="border-2 border-[var(--accent-action)] text-[var(--accent-action)] font-bold py-3.5 px-8 rounded-lg hover:bg-[var(--accent-action)] hover:text-[var(--bg-primary)] transition-all duration-300 text-sm tracking-wider uppercase cursor-pointer"
                 >
                   Load More Insights
                 </button>
@@ -210,10 +265,9 @@ export default function BlogPage() {
         )}
       </div>
 
-      {/* 5. NEWSLETTER CTA (Premium dark-block aesthetic) */}
+      {/* 5. NEWSLETTER CTA */}
       <div className="pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <section className="w-full bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-3xl py-16 px-8 sm:px-12 lg:px-16 shadow-2xl relative overflow-hidden">
-          {/* Decorative background aura */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent-action)] opacity-15 blur-[100px] rounded-full pointer-events-none"></div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
@@ -229,7 +283,7 @@ export default function BlogPage() {
                 placeholder="Enter your email address" 
                 className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] px-5 py-4 text-sm text-[var(--text-primary)] placeholder-[var(--text-body)]/50 focus:outline-none focus:border-[var(--accent-action)] focus:ring-1 focus:ring-[var(--accent-action)] rounded-xl transition-all"
               />
-              <button className="bg-[var(--accent-action)] text-[var(--bg-primary)] font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap text-sm shadow-lg">
+              <button className="bg-[var(--accent-action)] text-[var(--bg-primary)] font-bold py-4 px-8 rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap text-sm shadow-lg cursor-pointer">
                 Subscribe
               </button>
             </div>

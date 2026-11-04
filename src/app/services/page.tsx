@@ -8,7 +8,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 );
 
-// 1. ADDED: TypeScript interface for the Supabase row data
 interface SupabaseServiceRow {
   slug: string;
   title: string;
@@ -32,10 +31,11 @@ async function getServices() {
 
   if (!data) return [];
 
-  // 2. FIXED: Replaced 'any' with 'SupabaseServiceRow'
   return data.map((item: SupabaseServiceRow) => ({
     slug: item.slug,
-    title: item.sub_menu || item.h1 || item.title,
+    // Use the sub_menu or clean title for display
+    title: item.sub_menu || item.title,
+    // Pass the exact database category so your filter tabs pick them up
     category: item.category || "General",
     desc: item.intro_paragraphs?.[0] || "Professional technology and digital marketing services tailored to your business goals.",
   }));

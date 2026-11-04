@@ -1,49 +1,65 @@
 import Link from "next/link";
+import { ArrowRight, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
 
 export default function ThankYouPage() {
   return (
-    <div className="font-sans bg-[#FBFBFC] text-[#3B3843] min-h-screen flex items-center justify-center p-5 overflow-x-hidden">
-      <div className="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] items-center gap-[60px] p-10">
+    <div className="font-sans bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 transition-colors duration-300">
+      <div className="max-w-4xl w-full bg-[var(--card-bg)] border border-[var(--border-color)] rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
         
-        {/* Left Column: Content Area */}
-        <div className="flex flex-col items-start text-left max-lg:items-center max-lg:text-center max-lg:order-2">
-          {/* Success Circle Icon */}
-          <div className="w-[54px] h-[54px] border-[2.5px] border-[#2A1454] rounded-full flex items-center justify-center text-[#2A1454] mb-8">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-[3]">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
-            </svg>
-          </div>
-          
-          <h1 className="font-serif text-5xl lg:text-[64px] font-extrabold text-[#2A1454] leading-[1.15] mb-5 tracking-tight">
-            Thank You!
-          </h1>
-          <p className="text-xl font-bold text-[#1A0D36] mb-6">
-            Your submission has-been received.
-          </p>
-          
-          {/* Divider Accent Line */}
-          <div className="w-[40px] h-[2px] bg-[#C5BFD4] mb-8 max-lg:mx-auto"></div>
-          
-          <p className="text-base leading-[1.7] text-[#55525E] max-w-[440px] mb-10">
-            We appreciate you taking the time to connect with us. Our team will review your request and get back to you shortly.
-          </p>
-          
-          <Link href="/" className="inline-flex items-center gap-3 bg-[#2A1454] text-white no-underline px-8 py-4 rounded-[6px] font-semibold text-[15px] transition-all duration-250 ease-in-out shadow-[0_4px_14px_rgba(42,20,84,0.15)] hover:bg-[#1F0E3E] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(42,20,84,0.25)] group">
-            Back to Home 
-            <svg fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px] transition-transform duration-200 ease-in-out group-hover:translate-x-1">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-            </svg>
-          </Link>
+        {/* Subtle background ambient glow */}
+        <div className="absolute -top-24 -left-24 w-72 h-72 bg-[var(--accent-action)] opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[var(--accent-action)] opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        {/* Success Icon Badge */}
+        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[var(--accent-action)]/10 border border-[var(--accent-action)]/30 text-[var(--accent-action)] rounded-2xl flex items-center justify-center mb-8 shadow-inner relative z-10 animate-bounce">
+          <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
         </div>
 
-        {/* Right Column: Avatar Asset */}
-        <div className="flex justify-center items-center relative w-full max-lg:order-1">
-          <img 
-            src="https://static.wixstatic.com/media/480369_4752063d40794106867e015ff4a26119~mv2.png/v1/fill/w_251,h_377,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/480369_4752063d40794106867e015ff4a26119~mv2.png" 
-            alt="Submission Successful" 
-            className="w-full max-w-[520px] max-lg:max-w-[280px] h-auto object-contain drop-shadow-[0px_10px_20px_rgba(0,0,0,0.02)] animate-[fadeInRight_0.8s_cubic-bezier(0.16,1,0.3,1)]"
-          />
+        {/* Heading & Subtext */}
+        <span className="text-xs font-bold text-[var(--accent-action)] tracking-widest uppercase mb-3 block">
+          Transmission Confirmed
+        </span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] mb-4">
+          Thank You!
+        </h1>
+        <p className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] opacity-90 mb-6">
+          Your submission has been successfully received.
+        </p>
+
+        {/* Divider Accent Line */}
+        <div className="w-16 h-[2px] bg-[var(--accent-action)] mb-6"></div>
+
+        <p className="text-sm sm:text-base text-[var(--text-body)] max-w-xl leading-relaxed mb-10 opacity-90">
+          We appreciate you taking the time to connect with Clearby Services. Our specialists are reviewing your request and will reach out to you shortly with a practical roadmap.
+        </p>
+
+        {/* Feature Highlights Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg mb-10 text-left">
+          <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] p-4 rounded-xl flex items-center gap-3">
+            <Zap className="w-5 h-5 text-[var(--accent-action)] shrink-0" />
+            <div>
+              <h4 className="text-xs font-bold text-[var(--text-primary)]">Fast Response</h4>
+              <p className="text-[11px] text-[var(--text-body)]">Usually within 24 business hours.</p>
+            </div>
+          </div>
+
+          <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] p-4 rounded-xl flex items-center gap-3">
+            <ShieldCheck className="w-5 h-5 text-[var(--accent-action)] shrink-0" />
+            <div>
+              <h4 className="text-xs font-bold text-[var(--text-primary)]">Strictly Confidential</h4>
+              <p className="text-[11px] text-[var(--text-body)]">Your data is completely secure.</p>
+            </div>
+          </div>
         </div>
+
+        {/* Back to Home Action Button */}
+        <Link 
+          href="/" 
+          className="inline-flex items-center gap-3 bg-[var(--accent-action)] text-[var(--bg-primary)] px-8 py-4 rounded-xl font-bold text-sm tracking-wide uppercase transition-all duration-300 shadow-lg hover:opacity-90 hover:scale-[1.02] cursor-pointer"
+        >
+          Back to Home 
+          <ArrowRight className="w-4 h-4" />
+        </Link>
 
       </div>
     </div>
