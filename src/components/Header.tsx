@@ -147,7 +147,7 @@ export default function Header() {
           <div className="flex items-center shrink-0">
             <Link href="/" className="flex items-center gap-3 group">
               <img 
-                src={darkMode ? "/dark-favcon.png" : "/light-favcon.png"} 
+                src={darkMode ? "/Dark-favcon.png" : "/light-favcon.png"} 
                 alt="Clearby Services Logo" 
                 className="w-14 h-14 object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform" 
               />
