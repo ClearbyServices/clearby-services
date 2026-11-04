@@ -210,9 +210,9 @@ export default function HomePage() {
               
               <div className="relative w-3/4 h-3/4 bg-[var(--bg-primary)]/40 rounded-full p-12 border border-[var(--border-color)] backdrop-blur-xl shadow-2xl flex items-center justify-center overflow-hidden group-hover:border-[var(--accent-action)]/50 transition-colors duration-500">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent-action)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <img src="/light-favcon.png" alt="Clearby Services" className="w-full h-full object-contain drop-shadow-xl relative z-10 transform group-hover:scale-110 transition-transform duration-500 block dark:hidden [.dark_&]:hidden" />
-                <img src="/dark-favcon.png" alt="Clearby Services" className="w-full h-full object-contain drop-shadow-xl relative z-10 transform group-hover:scale-110 transition-transform duration-500 hidden dark:block [.dark_&]:block" />
-              </div>
+               <img src="/light-favcon.png" alt="Clearby Services" className="... block dark:hidden [.dark_&]:hidden" />
+               <img src="/dark-favcon.png" alt="Clearby Services" className="... hidden dark:block [.dark_&]:block" />
+                </div>
 
               <motion.div 
                 animate={{ y: [-5, 5, -5] }} 
