@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import { 
-  ChevronDown, Menu, X, PhoneCall, Sun, Moon, ArrowRight, 
-  Megaphone, MonitorSmartphone, Code, Smartphone, Layers, RefreshCw, Box, Briefcase
+  ChevronDown, Menu, X, PhoneCall, Sun, Moon, ArrowRight, Mail, 
+  Megaphone, MonitorSmartphone, Code, Smartphone, Layers, RefreshCw, Box, Briefcase, ExternalLink
 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
@@ -118,6 +118,16 @@ export default function Header() {
 
         <div className="h-4 w-px bg-[var(--border-color)]"></div>
 
+        <a 
+          href="mailto:contact@clearbyresearch.com" 
+          className="flex items-center gap-1.5 text-xs font-semibold text-[var(--text-primary)] hover:text-[var(--accent-action)] transition-colors"
+        >
+          <Mail className="w-3.5 h-3.5 text-[var(--accent-action)]" />
+          <span>contact@clearbyresearch.com</span>
+        </a>
+
+        <div className="h-4 w-px bg-[var(--border-color)]"></div>
+
         <button
           onClick={toggleTheme}
           className="text-[var(--text-primary)] hover:opacity-70 transition cursor-pointer flex items-center gap-2 text-xs font-semibold"
@@ -129,15 +139,6 @@ export default function Header() {
             <><Moon className="w-3.5 h-3.5 text-[var(--accent-action)]" /> Dark Mode</>
           )}
         </button>
-
-        <div className="h-4 w-px bg-[var(--border-color)]"></div>
-
-        <Link 
-          href="/contact" 
-          className="bg-[var(--accent-action)] text-[var(--bg-primary)] px-4 py-1.5 text-xs font-bold hover:opacity-90 transition rounded-sm shadow-sm"
-        >
-          Get Free Consultation
-        </Link>
       </div>
 
       {/* MAIN NAVIGATION BAR */}
@@ -271,7 +272,16 @@ export default function Header() {
             <Link href="/blog" className={`transition py-2 ${isActive("/blog") ? "text-[var(--text-primary)] font-bold border-b-2 border-[var(--accent-action)]" : "text-[var(--text-body)] hover:text-[var(--accent-action)]"}`}>Blog</Link>
           </nav>
 
-          <div className="hidden xl:flex">
+          <div className="hidden xl:flex items-center space-x-3">
+             <a 
+              href="https://clearbypolitical.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-[var(--card-bg)] border border-orange-500/40 text-[var(--text-primary)] px-4 py-2.5 text-sm font-bold rounded-xl hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center gap-1.5 group"
+            >
+              <span className="group-hover:translate-x-0.5 transition-transform">Clearby Political</span>
+              <ExternalLink className="w-3.5 h-3.5 text-orange-500 group-hover:text-white transition-colors" />
+            </a>
              <Link 
               href="/contact" 
               className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-6 py-2.5 text-sm font-bold rounded-xl hover:bg-[var(--accent-action)] hover:text-white transition-colors shadow-sm"
@@ -353,6 +363,22 @@ export default function Header() {
             >
               <PhoneCall className="w-4 h-4 text-[var(--accent-action)]" />
               <span>Call: +91-7020112146</span>
+            </a>
+            <a 
+              href="mailto:contact@clearbyresearch.com" 
+              className="flex items-center justify-center gap-2 w-full bg-[var(--card-bg)] border border-[var(--border-color)] py-3 text-sm font-semibold rounded-lg text-[var(--text-primary)] hover:border-[var(--accent-action)] transition-colors"
+            >
+              <Mail className="w-4 h-4 text-[var(--accent-action)]" />
+              <span>contact@clearbyresearch.com</span>
+            </a>
+            <a 
+              href="https://clearbypolitical.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex justify-center items-center gap-2 w-full bg-[var(--card-bg)] border border-orange-500/50 text-[var(--text-primary)] py-3 text-sm font-bold rounded-lg hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-300 shadow-sm"
+            >
+              <span>Clearby Political</span>
+              <ExternalLink className="w-4 h-4 text-orange-500 group-hover:text-white" />
             </a>
             <Link 
               href="/contact" 
