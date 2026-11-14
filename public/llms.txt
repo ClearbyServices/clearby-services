@@ -1,0 +1,17 @@
+# Clearby Services
+
+> Clearby Services is a Pune-based digital marketing and technology agency helping startups and established businesses grow through performance marketing, custom software engineering, and AI automation.
+
+## Core Capabilities
+- **Digital Marketing:** SEO, AEO/GEO, Social Media Marketing, Influencer Marketing, Local SEO.
+- **Lead Generation:** Google Ads (PPC), Performance Marketing, WhatsApp/Email/SMS Marketing.
+- **Technology & Development:** React.js / Next.js web applications, custom software development, mobile apps.
+- **Consulting:** Startup setup advisory and digital transformation strategy.
+
+## Key Links
+- [Home](https://clearbyservices.com/)
+- [Services](https://clearbyservices.com/services)
+- [Work](https://clearbyservices.com/work)
+- [About Us](https://clearbyservices.com/about)
+- [Blog](https://clearbyservices.com/blog)
+- [Contact](https://clearbyservices.com/contact)

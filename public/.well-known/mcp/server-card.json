@@ -1,0 +1,11 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/server-card.json",
+  "name": "Clearby Services MCP Server",
+  "version": "1.0.0",
+  "description": "Exposes agency service catalogs, capabilities, and consultation endpoints for AI agents.",
+  "endpoint": "https://clearbyservices.com/api/mcp",
+  "capabilities": {
+    "tools": true,
+    "resources": true
+  }
+}

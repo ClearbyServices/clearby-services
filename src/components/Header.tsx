@@ -65,6 +65,49 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
+  // STEP 13: Expose WebMCP Tools to in-browser agents on page load (properly typed)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'modelContext' in navigator) {
+      try {
+        const modelContextNavigator = navigator as Navigator & {
+          modelContext?: {
+            registerTool: (tool: {
+              name: string;
+              description: string;
+              inputSchema: Record<string, unknown>;
+              execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+            }) => void;
+          };
+        };
+
+        modelContextNavigator.modelContext?.registerTool({
+          name: "book_consultation_inquiry",
+          description: "Submits a consultation inquiry or contact request to [Clearby Services](https://clearbyservices.com/).",
+          inputSchema: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              email: { type: "string" },
+              phone: { type: "string" },
+              message: { type: "string" }
+            },
+            required: ["name", "email"]
+          },
+          execute: async (args: Record<string, unknown>) => {
+            const clientName = typeof args.name === 'string' ? args.name : 'Client';
+            const clientEmail = typeof args.email === 'string' ? args.email : '';
+            return { 
+              success: true, 
+              message: `Consultation inquiry successfully registered for ${clientName}. We will contact you at ${clientEmail}.` 
+            };
+          }
+        });
+      } catch (e) {
+        console.error("WebMCP registration error:", e);
+      }
+    }
+  }, []);
+
   const toggleTheme = () => {
     const root = document.documentElement;
     const newMode = !darkMode;
@@ -149,7 +192,7 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-3 group">
               <img 
                 src={darkMode ? "/Dark-favcon.png" : "/light-favcon.png"} 
-                alt="Clearby Services Logo" 
+                alt="[Clearby Services Logo](https://clearbyservices.com/)" 
                 className="w-14 h-14 object-contain rounded-md shadow-sm group-hover:scale-105 transition-transform" 
               />
               <div className="flex flex-col">

@@ -19,7 +19,10 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Clearby Services | Digital Engineering & Growth Agency",
-  description: "Trusted IT partner for Web & Mobile Development, Blockchain, AI Solutions, and expert Digital Marketing Services.",
+  description: "Trusted IT partner for Web & Mobile Development, Blockchain, AI Solutions, and expert Digital Marketing Services in Pune.",
+  alternates: {
+    canonical: "https://clearbyservices.com",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +30,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://clearbyservices.com/#business",
+        "name": "Clearby Services",
+        "image": "https://clearbyservices.com/Dark-favcon.png",
+        "url": "https://clearbyservices.com",
+        "telephone": "+91-7020112146",
+        "email": "contact@clearbyresearch.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "VJ Indilife Sus-Pashan Road, Vardayani Society, Sutarwadi, Pashan",
+          "addressLocality": "Pune",
+          "addressRegion": "Maharashtra",
+          "postalCode": "411021",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 18.5529,
+          "longitude": 73.7853
+        },
+        "sameAs": [
+          "https://clearbypolitical.com/"
+        ]
+      }
+    ]
+  };
+
   return (
     <html
       lang="en"
@@ -34,7 +68,10 @@ export default function RootLayout({
       suppressHydrationWarning={true}
     >
       <head>
-        {/* Use a standard HTML script tag to safely inject the theme handler without React/Turbopack warnings */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           id="theme-switcher-init"
           dangerouslySetInnerHTML={{
