@@ -16,6 +16,7 @@ interface ServiceLink {
 }
 
 export default function Footer() {
+  // Initial state acts as a fallback/skeleton while fetching
   const [columnThreeServices, setColumnThreeServices] = useState<ServiceLink[]>([
     { name: "Web & Full-Stack", href: "/services/web-fullstack" },
     { name: "Mobile App Dev", href: "/services/mobile-apps" },
@@ -166,7 +167,7 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-[var(--text-primary)] mb-6 tracking-wide">
               Services (Tech & AI)
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {columnThreeServices.map((item, idx) => (
                 <li key={idx}>
                   <Link 
@@ -185,7 +186,7 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-[var(--text-primary)] mb-6 tracking-wide">
               Services (Marketing & Design)
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {columnFourServices.map((item, idx) => (
                 <li key={idx}>
                   <Link 
