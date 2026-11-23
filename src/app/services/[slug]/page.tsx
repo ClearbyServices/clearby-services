@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,6 +17,8 @@ interface ServiceData {
   title: string;
   metaTitle?: string | null;
   metaDescription?: string | null;
+  canonicalUrl?: string | null;
+  schemaJson?: Record<string, unknown> | null;
   subMenu?: string;
   category: string;
   h1: string;
@@ -44,7 +47,7 @@ interface ServiceData {
   };
 }
 
-async function getService(slug: string): Promise<ServiceData | null> {
+const getService = cache(async (slug: string): Promise<ServiceData | null> => {
   const decodedSlug = decodeURIComponent(slug).trim();
 
   const { data: initialData, error } = await supabase
@@ -75,6 +78,8 @@ async function getService(slug: string): Promise<ServiceData | null> {
     title: data.title,
     metaTitle: data.meta_title,
     metaDescription: data.meta_description,
+    canonicalUrl: data.canonical_url,
+    schemaJson: data.schema_json,
     subMenu: data.sub_menu,
     category: data.category,
     h1: data.h1 || data.title,
@@ -85,7 +90,7 @@ async function getService(slug: string): Promise<ServiceData | null> {
     faqs: data.faqs || [],
     ctaSection: data.cta_section || {},
   };
-}
+});
 
 export async function generateMetadata({
   params,
@@ -106,7 +111,11 @@ export async function generateMetadata({
     service.metaDescription?.trim() ||
     service.introParagraphs[0] ||
     undefined;
-  const canonicalUrl = `https://clearbyservices.com/services/${service.slug}`;
+  const canonicalUrl =
+    service.canonicalUrl
+      ?.trim()
+      .replace(/^https:\/\/www\.clearbyservices\.com/, "https://clearbyservices.com") ||
+    `https://clearbyservices.com/services/${service.slug}`;
 
   return {
     title: {
@@ -156,6 +165,15 @@ export default async function ServiceDetailPage({
 
   return (
     <div className="w-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+      {service.schemaJson && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(service.schemaJson).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
+
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
         <div className="mb-4 text-[11px] font-bold text-[var(--text-body)] opacity-80 uppercase tracking-widest">
