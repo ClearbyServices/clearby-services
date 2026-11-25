@@ -102,7 +102,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-[var(--accent-action)] shrink-0 mt-0.5" />
                 <a href="mailto:contact@clearbyresearch.com" className="hover:text-[var(--accent-action)] transition">
-                  contact@clearbyresearch.com
+                  contact@clearbyservices.com
                 </a>
               </div>
               <div className="flex items-start gap-3">

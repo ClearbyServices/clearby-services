@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #F7F2F5;      /* Blush White */
+    --text-primary: #2A0F1F;    /* Deep Plum Black */
+    --text-body: #5A3F4E;       /* Muted Plum Grey */
+    --card-bg: #FFFFFF;         /* Pure White */
+    --border-color: #E6D8E0;    /* Soft Mauve Grey */
+    --accent-action: #7A1F4F;   /* Wine / Deep Plum (title colour) */
+    --accent-soft: #A47C95;     /* Dusty Mauve (side panel) */
+  }
+
+  .dark {
+    --bg-primary: #1A0C14;      /* Midnight Plum */
+    --text-primary: #F7F2F5;    /* Blush White */
+    --text-body: #D9C5D1;       /* Light Mauve */
+    --card-bg: #2A1521;         /* Dark Wine */
+    --border-color: #4A2B3D;    /* Plum Border */
+    --accent-action: #D48AB0;   /* Dusty Rose */
+    --accent-soft: #A47C95;     /* Dusty Mauve */
+  }
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-inter), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-family: var(--font-playfair), serif;
+}
