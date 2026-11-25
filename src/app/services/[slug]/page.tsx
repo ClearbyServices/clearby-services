@@ -112,11 +112,9 @@ export async function generateMetadata({
     service.introParagraphs[0] ||
     undefined;
   const canonicalUrl =
-    service.canonicalUrl
-      ?.trim()
-      .replace(/^https:\/\/www\.clearbyservices\.com/, "https://clearbyservices.com") ||
-    `https://clearbyservices.com/services/${service.slug}`;
-
+  service.canonicalUrl?.trim() ||
+  `https://www.clearbyservices.com/services/${service.slug}`;
+  
   return {
     title: {
       absolute: title,
